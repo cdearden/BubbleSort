@@ -1,62 +1,96 @@
-/* Author:      Craig Dearden
- * Date:        Jun 23, 2016
- * Name:        BubbleSort.java
- * Description: 
- */
-
-
 package com.craigdearden.util;
 
 import java.util.ArrayList;
 
+/**
+ * The <code>BubbleSort</code> takes in an <code>ArrayList</code> of comparable
+ * objects and then sorts them via the bubble method.
+ *
+ * @param <T> An object which extends <code>Comparable</code>.
+ */
 public class BubbleSort<T extends Comparable<T>> {
+
+    /**
+     * The list of items to sort.
+     */
     private ArrayList<T> sortedList;
 
     public BubbleSort() {
         sortedList = new ArrayList();
     }
-    
+
     BubbleSort(ArrayList<T> list) {
         sortedList = sort(list);
     }
-    
-    public void add(ArrayList<T> toadd) {
-        sortedList.addAll(toadd);
+
+    /**
+     * A sort is performed each time one or more elements is added maintaining a
+     * sorted list.
+     *
+     * @param items An <code>ArrayList</code> of items to add to the sorted
+     * list.
+     */
+    public void add(ArrayList<T> items) {
+        sortedList.addAll(items);
         sortedList = sort(sortedList);
     }
-    
+
+    /**
+     * The bubble sort algorithm which moves through the arraylist comparing the
+     * current object to the next object. If the current object is larger than
+     * the next object the two objects swap positions. It may take many
+     * iterations through the list before it is sorted.
+     *
+     * @param <T> An object that extends comparable.
+     * @param list The list to be sorted.
+     * @return A sorted <code>ArrayList</code>.
+     */
     public <T extends Comparable<T>> ArrayList<T> sort(ArrayList<T> list) {
         boolean sorted = false;
         int numSwaps = 0;
-        
-        while(!sorted) {
-            for(int i = 0; i < (list.size() - 1); i++) {
-                if(list.get(i).compareTo(list.get(i+1)) > 0) {
-                    list = swap(list,i,i+1);
+
+        while (!sorted) {
+            for (int i = 0; i < (list.size() - 1); i++) {
+                if (list.get(i).compareTo(list.get(i + 1)) > 0) {
+                    list = swap(list, i, i + 1);
                     numSwaps++;
                 }
             }
             
-            if(numSwaps == 0)
+            if (numSwaps == 0) {
                 sorted = true;
-            
-            numSwaps = 0; 
+            }
+           
+            numSwaps = 0;
         }
         
         return list;
     }
-    
-    private <T extends Comparable<T>> ArrayList<T> swap(ArrayList<T> list, int first, int second) {
+
+    /**
+     *
+     * @param <T> An object that extends comparable.
+     * @param list The list to be sorted.
+     * @param first First element to be swapped.
+     * @param second Second element to be swapped.
+     * @return An <code>ArrayList</code> with the first and second elements
+     * swapped.
+     */
+    private <T extends Comparable<T>> ArrayList<T> swap(ArrayList<T> list,
+            int first, int second) {
         T temporary = list.get(first);
         list.set(first, list.get(second));
         list.set(second, temporary);
-        
+
         return list;
     }
-    
+
+    /**
+     * Prints all the elements in the {@link BubbleSort#sortedList}.
+     */
     public void print() {
-        for(T element : sortedList) 
-            System.out.printf("%s ", element);
+        sortedList.stream().forEach((element) -> {
+            System.out.printf("s% ", element);
+        });
     }
-    
 }
