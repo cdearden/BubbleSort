@@ -99,6 +99,6 @@ public final class BubbleSort<T extends Comparable<T>> {
    * Prints all the elements in the {@link BubbleSort#sortedList}.
    */
   public void print() {
-    sortedList.stream().forEach(System.out::println);
+    sortedList.stream().forEach(s -> System.out.print(s + " "));
   }
 }
